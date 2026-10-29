@@ -1,0 +1,13 @@
+{
+  "name": "interview-practice",
+  "displayName": "面试演练",
+  "version": "1.0.0",
+  "description": "跨行业模拟面试。对齐目标岗位后入戏追问，再按候选人原话复盘，并只练最弱的一项。",
+  "author": {
+    "name": "cadetnicolas"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/cadetnicolas/interview_practice",
+  "keywords": ["interview", "mock-interview", "面试", "skill"],
+  "category": "productivity"
+}
