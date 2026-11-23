@@ -88,8 +88,11 @@ install_into() {
   if [[ -L "$dest" ]]; then
     rm "$dest"
   elif [[ -e "$dest" ]]; then
-    # 目标已存在且不是链接：备份，不直接删除用户内容
-    local backup="${dest}.bak.$(date +%Y%m%d%H%M%S)"
+    # 目标已存在且不是链接：备份，不直接删除用户内容。
+    # 备份必须放到 skills 目录之外——放在里面会被扫描成第二个同名 skill。
+    local backup_dir="${base}-backup"
+    mkdir -p "$backup_dir"
+    local backup="$backup_dir/$(basename "$dest").bak.$(date +%Y%m%d%H%M%S)"
     mv "$dest" "$backup"
     echo "已备份原目录：$backup" >&2
   fi
@@ -103,6 +106,19 @@ install_into() {
   echo "$dest"
 }
 
+# 同一目录下若有多个 SKILL.md 声明了同一个 name，加载器会当成两个同名 skill。
+# 备份目录、手工拷贝最容易造成这种情况，装完顺手查一次。
+check_duplicates() {
+  local base="$1" hits=0 p
+  for p in "$base"/*/SKILL.md; do
+    [[ -f "$p" ]] || continue
+    grep -q "^name: ${SKILL_NAME}$" "$p" && hits=$((hits + 1))
+  done
+  if [[ $hits -gt 1 ]]; then
+    echo "⚠️  $base 下有 $hits 个 skill 都叫 ${SKILL_NAME}，会显示成重复条目。请清理多余目录。" >&2
+  fi
+}
+
 main() {
   local source
   source="$(resolve_source)"
@@ -113,6 +129,7 @@ main() {
     local dest
     dest="$(install_into "$source" "$base")"
     echo "已安装：$dest"
+    check_duplicates "$base"
     installed=$((installed + 1))
   done < <(resolve_targets)
 

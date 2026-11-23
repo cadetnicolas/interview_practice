@@ -36,7 +36,9 @@ bash scripts/install.sh
 - `~/.workbuddy/skills/credit-agent-interview-coach`
 - `~/.cursor/skills/credit-agent-interview-coach`
 
-脚本没有交互确认。默认建符号链接（`git pull` 后自动生效）；目标已存在且不是链接时，会先备份成 `.bak.<时间戳>`，不会直接删。想装成实体副本用 `--copy`，指定目录用 `--target workbuddy|cursor|all`。
+脚本没有交互确认。默认建符号链接（`git pull` 后自动生效）；目标已存在且不是链接时，会先备份到同级目录 `skills-backup/`，不会直接删。想装成实体副本用 `--copy`，指定目录用 `--target workbuddy|cursor|all`。
+
+> 备份故意放在 `skills-backup/` 而不是 `skills/`。放在 `skills/` 里，它的 `SKILL.md` 会被扫描成一个同名 skill，列表里就出现两条一模一样的条目。装完脚本会自检一次，发现同名重复会告警。
 
 ## 使用
 
