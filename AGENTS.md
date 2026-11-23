@@ -27,6 +27,7 @@ curl -fsSL https://raw.githubusercontent.com/cadetnicolas/interview_practice/mai
 ## 改动这个 Skill 时
 
 - 主流程改 `SKILL.md`；评分口径改 `references/rubric.md`；追问话术改 `references/protocol.md`。
-- 只加题目：加到 `references/risk-bank.md` / `agent-bank.md` / `crossover-bank.md`，保持「必答 / 加分 / 陷阱」三段格式。
+- 加考点：加到 `references/coverage/` 对应文件，保持「触发 / 好回答 / 假好 / 追问」四行格式。
+- **不要往任何地方加固定题目。** 题目一律按 `references/question-design.md` 的方法从他简历现场生成；考点地图只用于评分校准，不许拿来抽题。
 - 改维度权重：只改 `references/roles/*.md`，不要动 `rubric.md` 的 1–5 分语义和通过线。
 - 改完跑一次 `python3 scripts/interview_log.py append --json '...'` 验证脚本仍可用。
